@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap5.1.css">
+    <script src="Js.js"></script>
+    <script src="jquery3x.js"></script>
+    <script>
+        $(document).ready(function(){
+            login()
+        });
+        function login(){
+            $("#loggin").click(function (e) { 
+                e.preventDefault();
+                $("#LoginModal").modal('show');
+                $("#submitloginBtn").click(function (e){
+                    e.preventDefault();
+                    var email = $("#email").val().trim();
+                    if(email==''){
+                      alret('nhập lại email');
+                  }else{
+                    $.ajax({
+                      type: 'post',
+                      url: "#",
+                      data:{
+                        email: email
+                      },
+                      dataType:JSON,
+                      success:function(res){
+                        if(res.check ==true){
+                          console.log(res.apitoken);
+                          localStorage.setItem("token",res.apitoken);
+                          alret("Đăng nhập thành công");
+                          $('#loginModal').modal('hide');
+                        }else{
+                          alret("Không thành công");
+                          alret('Sai! Nhập lại Email');
+                        }
+                      }
+                    })
+                  }
+                })
+            });
+        }
+    </script>
+</head>
+<body>
+    <!--Modal-->
+    <div class="modal fade" id="LoginModel" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="text" class="form-control" id="email">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="loginbtn">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+    <!--Modal-->
+
+
+
+
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="loginBtn" href="">Login</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-8">  
+            <input type="text" placeholder="to do" class="form-control">
+            </div>
+            <div class="col-md">
+                <button class=" btn bg-secondary">Thêm</button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+     
+    </script>
+</body>
+</html>
